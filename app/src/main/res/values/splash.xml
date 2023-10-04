@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.HypotheticalSport.Splash" parent="Theme.SplashScreen" >
+        <item name="windowSplashScreenBackground">#40D785</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/baseline_sports_handball_24</item>
+        <item name="postSplashScreenTheme">@style/Theme.HypotheticalSport</item>
+    </style>
+</resources>
