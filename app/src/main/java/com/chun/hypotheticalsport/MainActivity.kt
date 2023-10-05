@@ -1,13 +1,15 @@
 package com.chun.hypotheticalsport
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
-import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
 import com.chun.hypotheticalsport.domain.model.BottomNavItem
@@ -20,7 +22,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
@@ -34,7 +35,7 @@ class MainActivity : ComponentActivity() {
                                 BottomNavItem(
                                     name = "Matches",
                                     route = Screen.Match.route,
-                                    icon = Icons.Default.Home
+                                    icon = Icons.Default.DateRange
                                 ),
                                 BottomNavItem(
                                     name = "Teams",
@@ -48,11 +49,13 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                     }
-                ) {
-                    SetUpNavGraph(
-                        navController = navController,
-                        startDestination = Screen.Match.route
-                    )
+                ) { innerPadding ->
+                    Box(modifier = Modifier.padding(innerPadding)) {
+                        SetUpNavGraph(
+                            navController = navController,
+                            startDestination = Screen.Match.route
+                        )
+                    }
                 }
             }
         }

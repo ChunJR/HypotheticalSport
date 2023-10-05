@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("dagger.hilt.android.plugin")
     id("com.google.dagger.hilt.android")
+    id("kotlinx-serialization")
     id("kotlin-kapt")
 }
 
@@ -76,6 +77,9 @@ dependencies {
 
     // Compose Navigation
     implementation("androidx.navigation:navigation-compose:2.7.0-beta01")
+
+    // System UI Controller - Accompanist
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.28.0")
 
     // retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")

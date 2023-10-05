@@ -22,3 +22,9 @@ val ShimmerDarkGray = Color(0xFF1D1D1D)
 
 val Colors.topAppBarContentColor
     get() = if (isLight) Color.White else LightGray
+
+val Colors.statusBarColor
+    get() = if (isLight) PurpleGrey40 else Purple80
+
+val Colors.buttonBgColor
+    get() = if (isLight) Purple40 else Purple80

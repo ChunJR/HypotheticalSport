@@ -21,6 +21,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.chun.hypotheticalsport.domain.model.BottomNavItem
 import com.chun.hypotheticalsport.presentation.match.MatchScreen
+import com.chun.hypotheticalsport.presentation.team.TeamScreen
+import com.chun.hypotheticalsport.ui.theme.Purple80
 
 @Composable
 fun SetUpNavGraph(navController: NavHostController, startDestination: String) {
@@ -52,7 +54,7 @@ fun BottomNavigationBar(
             BottomNavigationItem(
                 selected = selected,
                 onClick = { onItemClick(item) },
-                selectedContentColor = Color.Green,
+                selectedContentColor = Purple80,
                 unselectedContentColor = Color.Gray,
                 icon = {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -64,22 +66,13 @@ fun BottomNavigationBar(
                             Text(
                                 text = item.name,
                                 textAlign = TextAlign.Center,
-                                fontSize = 10.sp
+                                fontSize = 10.sp,
+                                color = Purple80
                             )
                         }
                     }
                 }
             )
         }
-    }
-}
-
-@Composable
-fun TeamScreen() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(text = "Team screen")
     }
 }
