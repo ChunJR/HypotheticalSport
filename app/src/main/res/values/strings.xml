@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">HypotheticalSport</string>
     <string name="team_logo">Team Logo</string>
+    <string name="match_highlight">Match Highlight</string>
+    <string name="play_button">Play Button</string>
+    <string name="alarm_button">Alarm Button</string>
 </resources>

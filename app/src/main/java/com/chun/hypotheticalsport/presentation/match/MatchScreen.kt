@@ -17,7 +17,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 fun MatchScreen(
     viewModel: MatchViewModel = hiltViewModel(),
 ) {
-    val teamList = viewModel.uiState.collectAsState()
+    val matchList = viewModel.uiState.collectAsState()
 
     val systemUiController = rememberSystemUiController()
     val systemBarColor = MaterialTheme.colors.statusBarColor
@@ -28,7 +28,7 @@ fun MatchScreen(
     Scaffold(
         content = {
             MatchLazyColumn(
-                state = teamList
+                state = matchList
             )
         },
     )

@@ -8,6 +8,6 @@ data class Match(
     val description: String,
     val home: String,
     val away: String,
-    val winner: String,
-    val highlights: String,
+    val winner: String? = null,
+    val highlights: String? = null,
 )

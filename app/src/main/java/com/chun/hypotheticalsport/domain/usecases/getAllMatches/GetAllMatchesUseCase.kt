@@ -1,14 +1,13 @@
 package com.chun.hypotheticalsport.domain.usecases.getAllMatches
 
-import androidx.paging.PagingData
 import com.chun.hypotheticalsport.data.repository.Repository
-import com.chun.hypotheticalsport.domain.model.Match
+import com.chun.hypotheticalsport.domain.model.MatchDataResponse
 import kotlinx.coroutines.flow.Flow
 
 class GetAllMatchesUseCase(
     private val repository: Repository,
 ) {
-    operator fun invoke(): Flow<List<Match>> {
+    operator fun invoke(): Flow<MatchDataResponse> {
         return repository.getAllMatches()
     }
 }
