@@ -45,7 +45,6 @@ import coil.compose.rememberAsyncImagePainter
 import coil.decode.VideoFrameDecoder
 import com.chun.hypotheticalsport.R
 import com.chun.hypotheticalsport.domain.model.Match
-import com.chun.hypotheticalsport.domain.model.MatchDataResponse
 import com.chun.hypotheticalsport.presentation.common.EmptyScreen
 import com.chun.hypotheticalsport.presentation.common.ShimmerEffect
 import com.chun.hypotheticalsport.ui.theme.IMAGE_HEIGHT
@@ -96,7 +95,7 @@ private fun CategoryHeader(
         modifier = modifier
             .fillMaxWidth()
             .background(PurpleGrey40)
-            .padding(10.dp)
+            .padding(start = 16.dp, top = 10.dp, bottom = 10.dp)
     )
 }
 
@@ -131,7 +130,8 @@ private fun CategoryItem(
                     .padding(
                         start = MEDIUM_PADDING,
                         end = MEDIUM_PADDING,
-                        bottom = MEDIUM_PADDING),
+                        bottom = MEDIUM_PADDING
+                    ),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 val imageLoader = ImageLoader.Builder(LocalContext.current)
