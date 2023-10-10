@@ -5,6 +5,8 @@ import com.chun.hypotheticalsport.domain.model.Match
 import com.chun.hypotheticalsport.domain.model.MatchDataResponse
 import com.chun.hypotheticalsport.domain.model.Team
 import com.chun.hypotheticalsport.domain.repository.RemoteDataSource
+import com.chun.hypotheticalsport.presentation.match.MatchState
+import com.chun.hypotheticalsport.presentation.team.TeamState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -14,17 +16,27 @@ class RemoteDataSourceImpl (
     private val sportApi: SportApi,
     ) : RemoteDataSource {
 
-    override fun getAllTeams(): Flow<List<Team>> {
+    override fun getAllTeams(): Flow<TeamState> {
         return flow {
-            val teams = sportApi.getAllTeams().teams
-            emit(teams)
+            emit(TeamState.Loading)
+            try {
+                val data = sportApi.getAllTeams()
+                emit(TeamState.Success(data.teams))
+            } catch (exception: Exception) {
+                emit(TeamState.Error("Internet Issues"))
+            }
         }.flowOn(Dispatchers.IO)
     }
 
-    override fun getAllMatches(): Flow<MatchDataResponse> {
+    override fun getAllMatches(): Flow<MatchState> {
         return flow {
-            val matches = sportApi.getAllMatches().matches
-            emit(matches)
+            emit(MatchState.Loading)
+            try {
+                val data = sportApi.getAllMatches()
+                emit(MatchState.Success(data.matches))
+            } catch (exception: Exception) {
+                emit(MatchState.Error("Internet Issues"))
+            }
         }.flowOn(Dispatchers.IO)
     }
 

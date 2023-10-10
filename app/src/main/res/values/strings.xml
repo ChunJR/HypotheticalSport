@@ -4,4 +4,5 @@
     <string name="match_highlight">Match Highlight</string>
     <string name="play_button">Play Button</string>
     <string name="alarm_button">Alarm Button</string>
+    <string name="network_error_icon">Network Error Icon</string>
 </resources>

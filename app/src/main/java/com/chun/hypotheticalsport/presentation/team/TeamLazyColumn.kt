@@ -36,6 +36,9 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.chun.hypotheticalsport.R
 import com.chun.hypotheticalsport.domain.model.Team
+import com.chun.hypotheticalsport.presentation.common.EmptyScreen
+import com.chun.hypotheticalsport.presentation.common.ShimmerEffect
+import com.chun.hypotheticalsport.presentation.match.MatchState
 import com.chun.hypotheticalsport.ui.theme.LARGE_PADDING
 import com.chun.hypotheticalsport.ui.theme.Purple40
 import com.chun.hypotheticalsport.ui.theme.PurpleGrey80
@@ -48,34 +51,17 @@ fun TeamLazyColumn(
     state: State<TeamState>,
     modifier: Modifier = Modifier
 ) {
-    val teams = handleResult(state = state)
-    LazyColumn(
-        modifier = modifier
-    ) {
-        stickyHeader {
-            CategoryHeader("Teams")
-        }
-        items(teams) { team ->
-            CategoryItem(team)
+    val isValid = handleResult(state = state)
+    if (isValid) {
+        val teams = (state.value as TeamState.Success).teams
+        LazyColumn(
+            modifier = modifier
+        ) {
+            items(teams) { team ->
+                CategoryItem(team)
+            }
         }
     }
-}
-
-@Composable
-private fun CategoryHeader(
-    text: String,
-    modifier: Modifier = Modifier
-) {
-    Text(
-        text = text,
-        color = Color.White,
-        fontSize = 16.sp,
-        fontWeight = FontWeight.Bold,
-        modifier = modifier
-            .fillMaxWidth()
-            .background(Purple40)
-            .padding(16.dp)
-    )
 }
 
 @Composable
@@ -140,11 +126,20 @@ private fun CategoryItem(
     }
 }
 
+@Composable
 fun handleResult(
     state: State<TeamState>,
-): List<Team> {
+): Boolean {
     return when (state.value) {
-        is TeamState.Success -> (state.value as TeamState.Success).teams
-        is TeamState.Error -> emptyList()
+        is TeamState.Success -> true
+        is TeamState.Loading -> {
+            ShimmerEffect()
+            false
+        }
+        is TeamState.Error -> {
+            val message = (state.value as TeamState.Error).errorMessage
+            EmptyScreen(message)
+            false
+        }
     }
 }

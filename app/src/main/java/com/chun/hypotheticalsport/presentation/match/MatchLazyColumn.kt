@@ -46,9 +46,13 @@ import coil.decode.VideoFrameDecoder
 import com.chun.hypotheticalsport.R
 import com.chun.hypotheticalsport.domain.model.Match
 import com.chun.hypotheticalsport.domain.model.MatchDataResponse
+import com.chun.hypotheticalsport.presentation.common.EmptyScreen
 import com.chun.hypotheticalsport.presentation.common.ShimmerEffect
+import com.chun.hypotheticalsport.ui.theme.IMAGE_HEIGHT
 import com.chun.hypotheticalsport.ui.theme.LARGE_PADDING
+import com.chun.hypotheticalsport.ui.theme.MEDIUM_PADDING
 import com.chun.hypotheticalsport.ui.theme.Purple40
+import com.chun.hypotheticalsport.ui.theme.PurpleGrey40
 import com.chun.hypotheticalsport.ui.theme.PurpleGrey80
 
 @ExperimentalFoundationApi
@@ -57,10 +61,9 @@ fun MatchLazyColumn(
     state: State<MatchState>,
     modifier: Modifier = Modifier
 ) {
-    val matches = handleResult(state = state)
-    if (matches == null) {
-        ShimmerEffect()
-    } else {
+    val isValid = handleResult(state = state)
+    if (isValid) {
+        val matches = (state.value as MatchState.Success).matches
         LazyColumn(
             modifier = modifier
         ) {
@@ -88,12 +91,12 @@ private fun CategoryHeader(
     Text(
         text = text,
         color = Color.White,
-        fontSize = 16.sp,
+        fontSize = 14.sp,
         fontWeight = FontWeight.Bold,
         modifier = modifier
             .fillMaxWidth()
-            .background(Purple40)
-            .padding(16.dp)
+            .background(PurpleGrey40)
+            .padding(10.dp)
     )
 }
 
@@ -125,7 +128,10 @@ private fun CategoryItem(
             Row(
                 modifier = modifier
                     .fillMaxWidth()
-                    .padding(16.dp, 0.dp, 16.dp, 16.dp),
+                    .padding(
+                        start = MEDIUM_PADDING,
+                        end = MEDIUM_PADDING,
+                        bottom = MEDIUM_PADDING),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 val imageLoader = ImageLoader.Builder(LocalContext.current)
@@ -145,7 +151,7 @@ private fun CategoryItem(
                     Surface(shape = RoundedCornerShape(size = LARGE_PADDING)) {
                         Image(
                             modifier = modifier
-                                .height(100.dp)
+                                .height(IMAGE_HEIGHT)
                                 .fillMaxWidth()
                                 .align(Alignment.Center),
                             painter = painter,
@@ -236,10 +242,17 @@ fun BoxScope.AlarmButton(
 @Composable
 fun handleResult(
     state: State<MatchState>,
-): MatchDataResponse? {
+): Boolean {
     return when (state.value) {
-        is MatchState.Loading -> null
-        is MatchState.Success -> (state.value as MatchState.Success).matches
-        is MatchState.Error -> MatchDataResponse()
+        is MatchState.Success -> true
+        is MatchState.Loading -> {
+            ShimmerEffect()
+            false
+        }
+        is MatchState.Error -> {
+            val message = (state.value as MatchState.Error).errorMessage
+            EmptyScreen(message)
+            false
+        }
     }
 }

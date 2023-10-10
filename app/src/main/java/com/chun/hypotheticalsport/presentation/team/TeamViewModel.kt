@@ -14,14 +14,14 @@ class TeamViewModel @Inject constructor(
     private val useCases: UseCases,
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(TeamState.Success(emptyList()))
+    private val _uiState = MutableStateFlow<TeamState>(TeamState.Loading)
     val uiState: StateFlow<TeamState> = _uiState
 
     init {
         viewModelScope.launch {
             useCases.getAllTeamsUseCase()
-                .collect { teams ->
-                    _uiState.value = TeamState.Success(teams)
+                .collect { state ->
+                    _uiState.value = state
                 }
         }
     }

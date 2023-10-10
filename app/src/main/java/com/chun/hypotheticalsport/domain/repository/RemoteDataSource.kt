@@ -1,10 +1,10 @@
 package com.chun.hypotheticalsport.domain.repository
 
-import com.chun.hypotheticalsport.domain.model.MatchDataResponse
-import com.chun.hypotheticalsport.domain.model.Team
+import com.chun.hypotheticalsport.presentation.match.MatchState
+import com.chun.hypotheticalsport.presentation.team.TeamState
 import kotlinx.coroutines.flow.Flow
 
 interface RemoteDataSource {
-    fun getAllTeams(): Flow<List<Team>>
-    fun getAllMatches(): Flow<MatchDataResponse>
+    fun getAllTeams(): Flow<TeamState>
+    fun getAllMatches(): Flow<MatchState>
 }

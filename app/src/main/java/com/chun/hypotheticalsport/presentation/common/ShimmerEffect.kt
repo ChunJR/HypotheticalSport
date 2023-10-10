@@ -23,9 +23,11 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.chun.hypotheticalsport.ui.theme.*
 
@@ -35,7 +37,7 @@ fun ShimmerEffect() {
         contentPadding = PaddingValues(all = SMALL_PADDING),
         verticalArrangement = Arrangement.spacedBy(SMALL_PADDING),
     ) {
-        items(count = 2) {
+        items(count = 5) {
             AnimatedShimmerItem()
         }
     }
@@ -43,7 +45,7 @@ fun ShimmerEffect() {
 
 @Composable
 fun AnimatedShimmerItem() {
-    val transition = rememberInfiniteTransition()
+    val transition = rememberInfiniteTransition(label = "")
     val alphaAnim by transition.animateFloat(
         initialValue = 1f,
         targetValue = 0f,
@@ -54,6 +56,7 @@ fun AnimatedShimmerItem() {
             ),
             repeatMode = RepeatMode.Reverse,
         ),
+        label = "",
     )
     ShimmerItem(alpha = alphaAnim)
 }
@@ -61,46 +64,45 @@ fun AnimatedShimmerItem() {
 @Composable
 fun ShimmerItem(alpha: Float) {
     Surface(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(HERO_ITEM_HEIGHT),
+        modifier = Modifier.fillMaxWidth(),
         color = if (isSystemInDarkTheme()) Color.Black else ShimmerLightGray,
         shape = RoundedCornerShape(size = LARGE_PADDING),
     ) {
         Column(
             modifier = Modifier.padding(all = MEDIUM_PADDING),
-            verticalArrangement = Arrangement.Bottom,
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Surface(
                 modifier = Modifier
                     .alpha(alpha = alpha)
-                    .fillMaxWidth(0.5f)
+                    .fillMaxWidth(0.8f)
                     .height(NAME_SHIMMER_HEIGHT),
                 color = if (isSystemInDarkTheme()) ShimmerDarkGray else ShimmerMediumGray,
                 shape = RoundedCornerShape(size = SMALL_PADDING),
             ) {}
             Spacer(modifier = Modifier.padding(all = SMALL_PADDING))
-            repeat(3) {
+            Row(modifier = Modifier.fillMaxWidth()) {
                 Surface(
                     modifier = Modifier
                         .alpha(alpha = alpha)
-                        .fillMaxWidth()
-                        .height(ABOUT_SHIMMER_HEIGHT),
+                        .size(IMAGE_HEIGHT),
                     color = if (isSystemInDarkTheme()) ShimmerDarkGray else ShimmerMediumGray,
                     shape = RoundedCornerShape(size = SMALL_PADDING),
                 ) {}
-                Spacer(modifier = Modifier.padding(all = EXTRA_SMALL_PADDING))
-            }
-            Row(modifier = Modifier.fillMaxWidth()) {
-                repeat(5) {
-                    Surface(
-                        modifier = Modifier
-                            .alpha(alpha = alpha)
-                            .size(RATING_SHIMMER_HEIGHT),
-                        color = if (isSystemInDarkTheme()) ShimmerDarkGray else ShimmerMediumGray,
-                        shape = RoundedCornerShape(size = SMALL_PADDING),
-                    ) {}
-                    Spacer(modifier = Modifier.padding(all = SMALL_PADDING))
+                Spacer(modifier = Modifier.padding(all = SMALL_PADDING))
+                Column {
+                    repeat(4) {
+                        Surface(
+                            modifier = Modifier
+                                .alpha(alpha = alpha)
+                                .fillMaxWidth()
+                                .height(ABOUT_SHIMMER_HEIGHT),
+                            color = if (isSystemInDarkTheme()) ShimmerDarkGray else ShimmerMediumGray,
+                            shape = RoundedCornerShape(size = SMALL_PADDING),
+                        ) {}
+                        Spacer(modifier = Modifier.padding(all = EXTRA_SMALL_PADDING))
+                    }
                 }
             }
         }

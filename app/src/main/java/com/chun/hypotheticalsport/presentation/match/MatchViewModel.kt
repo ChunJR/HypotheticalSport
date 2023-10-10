@@ -29,8 +29,8 @@ class MatchViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             useCases.getAllMatchesUseCase()
-                .collect { matches ->
-                    _uiState.value = MatchState.Success(matches)
+                .collect { state ->
+                    _uiState.value = state
                 }
         }
     }
