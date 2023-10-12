@@ -17,4 +17,8 @@ class Repository @Inject constructor(
     fun getAllTeams(): Flow<TeamState> {
         return remoteDataSource.getAllTeams()
     }
+
+    fun getTeamMatches(id: String): Flow<MatchState> {
+        return remoteDataSource.getTeamMatches(id)
+    }
 }

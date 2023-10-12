@@ -5,6 +5,7 @@ import com.chun.hypotheticalsport.data.repository.Repository
 import com.chun.hypotheticalsport.domain.usecases.UseCases
 import com.chun.hypotheticalsport.domain.usecases.getAllMatches.GetAllMatchesUseCase
 import com.chun.hypotheticalsport.domain.usecases.getAllTeams.GetAllTeamsUseCase
+import com.chun.hypotheticalsport.domain.usecases.getTeamMatches.GetTeamMatchesUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,6 +23,7 @@ object RepositoryModule {
         return UseCases(
             getAllMatchesUseCase = GetAllMatchesUseCase(repository = repository),
             getAllTeamsUseCase = GetAllTeamsUseCase(repository = repository),
+            getTeamMatchesUseCase = GetTeamMatchesUseCase(repository = repository),
         )
     }
 }

@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.chun.hypotheticalsport.ui.theme.Purple40
 import com.chun.hypotheticalsport.ui.theme.Purple80
 import com.chun.hypotheticalsport.ui.theme.statusBarColor
@@ -21,6 +22,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun MatchScreen(
+    navController: NavHostController,
     viewModel: MatchViewModel = hiltViewModel(),
 ) {
     val matchList = viewModel.uiState.collectAsState()

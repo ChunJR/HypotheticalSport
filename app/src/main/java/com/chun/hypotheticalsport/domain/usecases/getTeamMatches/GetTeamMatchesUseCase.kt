@@ -1,13 +1,14 @@
-package com.chun.hypotheticalsport.domain.usecases.getAllMatches
+package com.chun.hypotheticalsport.domain.usecases.getTeamMatches
 
 import com.chun.hypotheticalsport.data.repository.Repository
 import com.chun.hypotheticalsport.presentation.match.MatchState
 import kotlinx.coroutines.flow.Flow
 
-class GetAllMatchesUseCase(
+class GetTeamMatchesUseCase(
     private val repository: Repository,
+
 ) {
-    operator fun invoke(): Flow<MatchState> {
-        return repository.getAllMatches()
+    operator fun invoke(id: String): Flow<MatchState> {
+        return repository.getTeamMatches(id)
     }
 }

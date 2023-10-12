@@ -22,16 +22,20 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.chun.hypotheticalsport.domain.model.BottomNavItem
 import com.chun.hypotheticalsport.presentation.match.MatchScreen
 import com.chun.hypotheticalsport.presentation.team.TeamScreen
+import com.chun.hypotheticalsport.presentation.team_detail.TeamMatchScreen
 import com.chun.hypotheticalsport.ui.theme.Purple80
 
 @Composable
 fun SetUpNavGraph(navController: NavHostController, startDestination: String) {
     NavHost(navController = navController, startDestination = startDestination) {
         composable(route = Screen.Match.route) {
-            MatchScreen()
+            MatchScreen(navController = navController)
         }
         composable(route = Screen.Team.route) {
-            TeamScreen()
+            TeamScreen(navController = navController)
+        }
+        composable(route = Screen.TeamMatch.route) {
+            TeamMatchScreen(navController = navController)
         }
     }
 }
