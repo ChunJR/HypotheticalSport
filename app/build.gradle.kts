@@ -96,9 +96,6 @@ dependencies {
     kapt("androidx.hilt:hilt-compiler:1.0.0")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
 
-    // Paging 3.0
-    implementation("androidx.paging:paging-compose:3.2.0-rc01")
-
     // Coil
     implementation("io.coil-kt:coil-compose:2.2.2")
     implementation("io.coil-kt:coil-video:2.2.2")
