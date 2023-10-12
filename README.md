@@ -26,17 +26,17 @@ Single Activity App with Jetpack Compose, built-in Clean Architecture.
 
 - **Design Pattern**:
   - **[MVVM]** a Model-View-ViewModel architecture that removes the tight coupling between each component.
-  
- - **Dependency Injection**:
-   - **[Hilt]** - a dependency injection library for Android that reduces the boilerplate of doing manual dependency injection in your project.
+    
+- **Dependency Injection**:
+  - **[Hilt]** - a dependency injection library for Android that reduces the boilerplate of doing manual dependency injection in your project.
  
 - **Networking**:  
   - **[Retrofit]** - a type-safe REST client for Android that aims to make it easier to consume RESTful web services.
   - **[Coil]** - an image-loading library backed by Kotlin Coroutines.
-  
- - **Asynchronous**:
+
+- **Asynchronous**:
   - **[Coroutine]** - a concurrency design pattern that you can use on Android to simplify code that executes asynchronously.
  
- - **Tesing**:
-   - **[Junit]** - a great unit testing platform for Java applications and now it offers special APIs for Android developers.
-   - **[Mockito]** - a mocking framework that tastes really good. It lets you write beautiful tests with a clean & simple API.
+- **Tesing**:
+  - **[Junit]** - a great unit testing platform for Java applications and now it offers special APIs for Android developers.
+  - **[Mockito]** - a mocking framework that tastes really good. It lets you write beautiful tests with a clean & simple API.
