@@ -1,9 +1,6 @@
 package com.chun.hypotheticalsport.data.repository
 
 import com.chun.hypotheticalsport.data.remote.SportApi
-import com.chun.hypotheticalsport.domain.model.Match
-import com.chun.hypotheticalsport.domain.model.MatchDataResponse
-import com.chun.hypotheticalsport.domain.model.Team
 import com.chun.hypotheticalsport.domain.repository.RemoteDataSource
 import com.chun.hypotheticalsport.presentation.match.MatchState
 import com.chun.hypotheticalsport.presentation.team.TeamState
@@ -33,6 +30,18 @@ class RemoteDataSourceImpl (
             emit(MatchState.Loading)
             try {
                 val data = sportApi.getAllMatches()
+                emit(MatchState.Success(data.matches))
+            } catch (exception: Exception) {
+                emit(MatchState.Error("Internet Issues"))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override fun getTeamMatches(id: String): Flow<MatchState> {
+        return flow {
+            emit(MatchState.Loading)
+            try {
+                val data = sportApi.getTeamMatches(id)
                 emit(MatchState.Success(data.matches))
             } catch (exception: Exception) {
                 emit(MatchState.Error("Internet Issues"))

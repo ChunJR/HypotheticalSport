@@ -7,4 +7,5 @@ import kotlinx.coroutines.flow.Flow
 interface RemoteDataSource {
     fun getAllTeams(): Flow<TeamState>
     fun getAllMatches(): Flow<MatchState>
+    fun getTeamMatches(id: String): Flow<MatchState>
 }

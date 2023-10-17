@@ -1,12 +1,9 @@
 package com.chun.hypotheticalsport.presentation.team
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -29,25 +26,24 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.chun.hypotheticalsport.R
 import com.chun.hypotheticalsport.domain.model.Team
+import com.chun.hypotheticalsport.navigation.Screen
 import com.chun.hypotheticalsport.presentation.common.EmptyScreen
 import com.chun.hypotheticalsport.presentation.common.ShimmerEffect
-import com.chun.hypotheticalsport.presentation.match.MatchState
 import com.chun.hypotheticalsport.ui.theme.LARGE_PADDING
-import com.chun.hypotheticalsport.ui.theme.Purple40
 import com.chun.hypotheticalsport.ui.theme.PurpleGrey80
 import com.chun.hypotheticalsport.ui.theme.buttonBgColor
-import com.chun.hypotheticalsport.ui.theme.topAppBarContentColor
 
 @ExperimentalFoundationApi
 @Composable
 fun TeamLazyColumn(
+    navController: NavHostController,
     state: State<TeamState>,
     modifier: Modifier = Modifier
 ) {
@@ -58,7 +54,7 @@ fun TeamLazyColumn(
             modifier = modifier
         ) {
             items(teams) { team ->
-                CategoryItem(team)
+                CategoryItem(team, navController)
             }
         }
     }
@@ -67,6 +63,7 @@ fun TeamLazyColumn(
 @Composable
 private fun CategoryItem(
     team: Team,
+    navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
     Card(
@@ -109,7 +106,8 @@ private fun CategoryItem(
                     fontSize = 14.sp,
                 )
                 Button(
-                    onClick = {},
+                    onClick = {
+                        navController.navigate(Screen.TeamMatch.passId(id = team.id)) },
                     colors = ButtonDefaults.buttonColors(
                         backgroundColor = MaterialTheme.colors.buttonBgColor,
                         contentColor = Color.White,

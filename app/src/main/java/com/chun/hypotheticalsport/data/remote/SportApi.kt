@@ -3,6 +3,7 @@ package com.chun.hypotheticalsport.data.remote
 import com.chun.hypotheticalsport.domain.model.MatchResponse
 import com.chun.hypotheticalsport.domain.model.TeamResponse
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 interface SportApi {
 
@@ -12,7 +13,7 @@ interface SportApi {
     @GET("/teams/matches")
     suspend fun getAllMatches(): MatchResponse
 
-//    @GET("/teams/{id}/matches")
-//    suspend fun getTeamMatches(): ApiResponse
+    @GET("/teams/{id}/matches")
+    suspend fun getTeamMatches(@Path("id") id: String): MatchResponse
 
 }
