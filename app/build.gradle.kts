@@ -78,7 +78,6 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
-
     // Splash API
     implementation("androidx.core:core-splashscreen:1.0.0")
 
@@ -112,7 +111,11 @@ dependencies {
     implementation("io.coil-kt:coil-video:2.2.2")
 
     // ExoPlayer
-    implementation("com.google.android.exoplayer:exoplayer:2.15.1")
+    implementation("androidx.media3:media3-exoplayer:1.0.0-beta02")
+    implementation("androidx.media3:media3-ui:1.0.0-beta02")
+
+    //Gson
+    implementation("com.google.code.gson:gson:2.10.1")
 }
 
 // Hilt

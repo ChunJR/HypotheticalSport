@@ -40,11 +40,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import coil.ImageLoader
 import coil.compose.rememberAsyncImagePainter
 import coil.decode.VideoFrameDecoder
 import com.chun.hypotheticalsport.R
 import com.chun.hypotheticalsport.domain.model.Match
+import com.chun.hypotheticalsport.navigation.Screen
 import com.chun.hypotheticalsport.presentation.common.EmptyScreen
 import com.chun.hypotheticalsport.presentation.common.ShimmerEffect
 import com.chun.hypotheticalsport.ui.theme.IMAGE_HEIGHT
@@ -53,10 +55,12 @@ import com.chun.hypotheticalsport.ui.theme.MEDIUM_PADDING
 import com.chun.hypotheticalsport.ui.theme.Purple40
 import com.chun.hypotheticalsport.ui.theme.PurpleGrey40
 import com.chun.hypotheticalsport.ui.theme.PurpleGrey80
+import com.google.gson.Gson
 
 @ExperimentalFoundationApi
 @Composable
 fun MatchLazyColumn(
+    navController: NavHostController,
     state: State<MatchState>,
     modifier: Modifier = Modifier
 ) {
@@ -70,13 +74,13 @@ fun MatchLazyColumn(
                 CategoryHeader("Previous")
             }
             items(matches.previous) { previousMatch ->
-                CategoryItem(previousMatch)
+                CategoryItem(navController = navController, previousMatch)
             }
             stickyHeader {
                 CategoryHeader("Upcoming")
             }
             items(matches.upcoming) { upcomingMatch ->
-                CategoryItem(upcomingMatch)
+                CategoryItem(navController = navController, upcomingMatch)
             }
         }
     }
@@ -101,6 +105,7 @@ private fun CategoryHeader(
 
 @Composable
 private fun CategoryItem(
+    navController: NavHostController,
     match: Match,
     modifier: Modifier = Modifier
 ) {
@@ -160,7 +165,7 @@ private fun CategoryItem(
                         )
                     }
                     if (match.highlights != null) {
-                        PlayButton()
+                        PlayButton(navController = navController, match)
                     } else {
                         AlarmButton()
                     }
@@ -203,6 +208,8 @@ private fun CategoryItem(
 
 @Composable
 fun BoxScope.PlayButton(
+    navController: NavHostController,
+    match: Match,
     modifier: Modifier = Modifier,
 ) {
     IconButton(
@@ -210,7 +217,13 @@ fun BoxScope.PlayButton(
             .align(Alignment.Center)
             .size(30.dp)
             .background(Purple40, shape = CircleShape),
-        onClick = { }
+//        onClick = {
+////            navController.navigate(Screen.VideoPlayer.passMatchDetail(matchJson = Gson().toJson(match)))
+//            navController.navigate(Screen.TeamMatch.passId(""))
+//        }
+
+                onClick = {
+            navController.navigate(Screen.TeamMatch.passId(id = "")) },
     ) {
         Icon(
             imageVector = Icons.Default.PlayArrow,

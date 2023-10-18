@@ -47,6 +47,7 @@ fun MatchScreen(
         },
         content = {
             MatchLazyColumn(
+                navController = navController,
                 state = matchList
             )
         },

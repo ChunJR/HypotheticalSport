@@ -1,7 +1,6 @@
-package com.chun.hypotheticalsport.presentation.team_detail
+package com.chun.hypotheticalsport.presentation.video_player
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -13,26 +12,22 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.chun.hypotheticalsport.presentation.match.MatchLazyColumn
+import com.chun.hypotheticalsport.domain.model.Match
 import com.chun.hypotheticalsport.ui.theme.Purple40
 import com.chun.hypotheticalsport.ui.theme.Purple80
 import com.chun.hypotheticalsport.ui.theme.statusBarColor
 import com.chun.hypotheticalsport.ui.theme.topAppBarContentColor
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
-@OptIn(ExperimentalFoundationApi::class)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun TeamMatchScreen(
+fun VideoScreen(
     navController: NavHostController,
-    viewModel: TeamMatchViewModel = hiltViewModel(),
+    viewModel: VideoViewModel = hiltViewModel(),
 ) {
-    val matchList = viewModel.uiState.collectAsState()
-
     val systemUiController = rememberSystemUiController()
     val systemBarColor = MaterialTheme.colors.statusBarColor
     SideEffect {
@@ -44,7 +39,7 @@ fun TeamMatchScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "Team's Matches",
+                        text = "Video Player",
                         color = MaterialTheme.colors.topAppBarContentColor,
                     )
                 },
@@ -61,9 +56,8 @@ fun TeamMatchScreen(
             )
         },
         content = {
-            MatchLazyColumn(
-                navController = navController,
-                state = matchList
+            VideoPlayer(
+                viewModel = viewModel
             )
         },
     )
